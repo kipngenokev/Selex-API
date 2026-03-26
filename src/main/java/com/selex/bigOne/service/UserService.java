@@ -7,6 +7,8 @@ import com.selex.bigOne.models.UserResponse;
 import com.selex.bigOne.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,4 +34,17 @@ public class UserService {
         UserResponse userResponse = new UserResponse(user.getId(),user.getName(),user.getEmail());
         return userResponse;
     }
+
+    public List<UserResponse> getAllUsers() {
+        List<User> allUsers = userRepository.findAll();
+        List<UserResponse> userResponseList = new ArrayList<>();
+
+        for(User user : allUsers) {
+            userResponseList.add(new UserResponse(user.getId(),user.getName(),user.getEmail()));
+        }
+
+        return userResponseList;
+    }
+
+
 }
