@@ -7,10 +7,7 @@ import com.selex.bigOne.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -33,4 +30,13 @@ public class UserController {
 //        return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
         return ResponseEntity.created(URI.create("/api/v1/users"+ user.getId())).body(userResponse);
     }
+
+    @GetMapping("users/{id}")
+    public ResponseEntity<UserResponse> getUser (@PathVariable Long id) {
+        UserResponse userResponse = userService.getById(id);
+        return ResponseEntity.ok(userResponse);
+
+    }
+
+
 }
