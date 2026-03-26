@@ -4,6 +4,7 @@ import com.selex.bigOne.entity.User;
 import com.selex.bigOne.models.UserRequest;
 import com.selex.bigOne.models.UserResponse;
 import com.selex.bigOne.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest userRequest) {
 
         User user = userService.saveUser(userRequest);
         UserResponse userResponse = new UserResponse(user.getId(),user.getName(),user.getEmail());
@@ -52,7 +53,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     @PutMapping("/users/{id}")
-    public ResponseEntity<UserResponse> updateUser(@PathVariable long id, @RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> updateUser(@PathVariable long id, @Valid @RequestBody UserRequest userRequest) {
         UserResponse userResponse = userService.updateUser(id,userRequest);
         return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
