@@ -1,6 +1,7 @@
 package com.selex.bigOne.service;
 
 import com.selex.bigOne.entity.User;
+import com.selex.bigOne.exceptions.ResourceNotFoundException;
 import com.selex.bigOne.models.UserRequest;
 import com.selex.bigOne.models.UserResponse;
 import com.selex.bigOne.repository.UserRepository;
@@ -32,7 +33,7 @@ public class UserService {
         if(data.isPresent()) {
             user = data.get();
         } else {
-            throw new RuntimeException("User with id "+ id + " is not found");
+            throw new ResourceNotFoundException("User with id "+ id + " is not found");
         }
 
         UserResponse userResponse = new UserResponse(user.getId(),user.getName(),user.getEmail());
