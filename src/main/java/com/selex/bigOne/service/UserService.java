@@ -50,5 +50,16 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public UserResponse updateUser(long id, UserRequest userRequest) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id "+id+" not found "));
+
+        user.setName(userRequest.name());
+        user.setEmail(userRequest.email());
+
+        User updatedUser = userRepository.save(user);
+        return new UserResponse(updatedUser.getId(), updatedUser.getName(), updatedUser.getEmail());
+
+    }
+
 
 }

@@ -51,5 +51,11 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable long id, @RequestBody UserRequest userRequest) {
+        UserResponse userResponse = userService.updateUser(id,userRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
+    }
+
 
 }
